@@ -1,0 +1,4 @@
+lis = [1,2,3,4];
+untuk setiap nombor dalam lis {
+    tolong cetak nombor;
+}

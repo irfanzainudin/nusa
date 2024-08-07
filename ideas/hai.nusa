@@ -1,0 +1,16 @@
+// import Fail type from the standard library
+guna buka, tutup daripada PustakaFail;
+
+// import bubble sort from the standard algorithm library
+guna isihan_gelembung daripada Algoritma;
+
+definisi utama() {
+    // `tolong` points the operation to stdout
+    tolong cetak "Hai Nusa";
+
+    // Example for writing to a file
+    konten_fail = "Ini contoh konten untuk dicetak ke dalam fail";
+    fail = buka("contoh.txt");
+    cetak konten_fail dalam fail;
+    tutup(fail);
+}

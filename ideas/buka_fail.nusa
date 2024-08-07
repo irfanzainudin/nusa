@@ -1,0 +1,8 @@
+guna baca daripada PustakaFail;
+
+tolong buka("test.txt") sebagai fail {
+    konten = baca(fail);
+    untuk setiap baris dalam konten {
+        tolong cetak baris;
+    }
+}

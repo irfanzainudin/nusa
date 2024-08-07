@@ -1,0 +1,12 @@
+// Activate abbreviated spelling mode
+guna ejaan singkat;
+
+def utama() {
+    // `tolong` is optional in abbreviated spelling mode
+    cetak "Hai Bahasa Melayu!";
+
+    lis = [1,2,3,4,5];
+    untuk nom : lis {
+        cetak nom;
+    }
+}

@@ -1,0 +1,9 @@
+// Return reference
+fungsi tolak() {
+    pulangi x - y;
+}
+
+// Return value
+fungsi tambah() {
+    pulangkan x + y;
+}

@@ -1,0 +1,9 @@
+// `fungsi` is functional
+fungsi tambah() {
+    pulangkan x + y;
+}
+
+// `definisi` is procedural
+definisi utama() {
+    hasil: tambah();
+}

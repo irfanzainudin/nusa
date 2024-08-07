@@ -1,0 +1,14 @@
+// Inheritance
+kelas Binatang mewarisi Objek {
+    nama jenis frasa; // variable `nama` is of type `frasa`
+    spesies jenis frasa; // variable `spesies` is of type `frasa`
+
+    pembina(nama jenis frasa, spesies jenis frasa) {
+        ini.nama = nama;
+        ini.spesies = spesies;
+    }
+}
+
+definisi utama() {
+    anjing = cipta Binatang("anjing", "mamalia");
+}
