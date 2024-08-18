@@ -67,6 +67,7 @@ int main(int argc, char* argv[]) {
 
     // lexer_T* lexer = init_lexer(contents);
     lexer_T* lexer = init_lexer("tolong cetak \"Salam, Nusa!\";\n");
+    // lexer_T* lexer = init_lexer("set nama = \"irfanzainudin\";\ncetak nama;\n");
 
     token_T* token = (void*)0;
 
