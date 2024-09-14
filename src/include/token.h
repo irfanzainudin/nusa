@@ -14,6 +14,7 @@ struct TOKEN_STRUCT
         TOKEN_LBRACE,
         TOKEN_RBRACE,
         TOKEN_COMMA,
+        TOKEN_COMMENT,
         TOKEN_EOF,
     } type;
 

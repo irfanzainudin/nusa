@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include <ctype.h>
 #include "include/lexer.h"
 
@@ -15,6 +16,7 @@ lexer_T* init_lexer(char* contents)
 
 void lexer_advance(lexer_T* lexer)
 {
+    // printf("lexer->current_char: %c\n", lexer->current_char);
     if (lexer->current_char != '\0' && lexer->index < strlen(lexer->contents)) {
         lexer->index++;
         lexer->current_char = lexer->contents[lexer->index];
@@ -30,6 +32,7 @@ void lexer_skip_whitespace(lexer_T* lexer)
 
 token_T* lexer_get_next_token(lexer_T* lexer)
 {
+    // printf("lexer->current_char: %s\n", lexer->current_char);
     while (lexer->current_char != '\0' && lexer->index < strlen(lexer->contents)) {
         if (lexer->current_char == ' ' || lexer->current_char == '\n') {
             lexer_skip_whitespace(lexer);
@@ -43,6 +46,10 @@ token_T* lexer_get_next_token(lexer_T* lexer)
             return lexer_collect_string(lexer);
         }
 
+        if (lexer->current_char == "/") {
+            return lexer_ignore_comment(lexer);
+        }
+
         switch (lexer->current_char)
         {
         case '=': return lexer_advance_with_token(lexer, init_token(TOKEN_EQUALS, lexer_get_current_char_as_string(lexer))); break;
@@ -52,10 +59,15 @@ token_T* lexer_get_next_token(lexer_T* lexer)
         case '{': return lexer_advance_with_token(lexer, init_token(TOKEN_LBRACE, lexer_get_current_char_as_string(lexer))); break;
         case '}': return lexer_advance_with_token(lexer, init_token(TOKEN_RBRACE, lexer_get_current_char_as_string(lexer))); break;
         case ',': return lexer_advance_with_token(lexer, init_token(TOKEN_COMMA, lexer_get_current_char_as_string(lexer))); break;
+        case '/':
+            return lexer_ignore_comment(lexer);
+            break;
         
         default:
             break;
         }
+
+        // lexer_advance(lexer);
     }
 
     return (void*)0;
@@ -97,6 +109,24 @@ token_T* lexer_collect_id(lexer_T* lexer)
     }
 
     return init_token(TOKEN_ID, value);
+}
+
+token_T* lexer_ignore_comment(lexer_T* lexer)
+{
+    lexer_advance(lexer); // skip '/' char
+    lexer_advance(lexer); // skip '/' char
+
+    while (lexer->current_char != '\n')
+    {
+        // if (lexer->current_char == EOF) // this doesn't work
+        if (lexer->current_char == '\0') // TODO: why not EOF?
+        {
+            break;
+        }
+        lexer_advance(lexer);
+    }
+
+    return init_token(TOKEN_COMMENT, "");
 }
 
 token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token)
