@@ -4,6 +4,8 @@ fungsi tambah() {
 }
 
 // `definisi` is procedural
+// I'm going to change it to `tatacara` = prosedur = procedure
+// Or `aturcara` if it's more applicable
 definisi utama() {
     hasil: tambah();
 }

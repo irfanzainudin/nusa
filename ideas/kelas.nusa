@@ -1,7 +1,13 @@
 // Inheritance
 kelas Binatang mewarisi Objek {
-    nama jenis frasa; // variable `nama` is of type `frasa`
-    spesies jenis frasa; // variable `spesies` is of type `frasa`
+    // variable `nama` and `spesies` are both of type `frasa`
+    nama jenis frasa;
+    spesies jenis frasa;
+
+    // ANOTHER OPTION
+    -> can be `frasa` or `ayat`
+    nama: ayat;
+    spesies: ayat;
 
     pembina(nama jenis frasa, spesies jenis frasa) {
         ini.nama = nama;

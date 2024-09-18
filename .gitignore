@@ -7,3 +7,6 @@ testies
 # Temporary directories and folders
 temp
 temp/*
+
+# Implementation in cmalay
+smbr/
