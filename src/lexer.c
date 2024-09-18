@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include "include/token.h"
 #include "include/lexer.h"
 
 lexer_T* init_lexer(char* contents)
@@ -16,11 +17,17 @@ lexer_T* init_lexer(char* contents)
 
 void lexer_advance(lexer_T* lexer)
 {
-    // printf("lexer->current_char: %c\n", lexer->current_char);
     if (lexer->current_char != '\0' && lexer->index < strlen(lexer->contents)) {
         lexer->index++;
         lexer->current_char = lexer->contents[lexer->index];
     }
+}
+
+token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token)
+{
+    lexer_advance(lexer);
+
+    return token;
 }
 
 void lexer_skip_whitespace(lexer_T* lexer)
@@ -32,7 +39,6 @@ void lexer_skip_whitespace(lexer_T* lexer)
 
 token_T* lexer_get_next_token(lexer_T* lexer)
 {
-    // printf("lexer->current_char: %s\n", lexer->current_char);
     while (lexer->current_char != '\0' && lexer->index < strlen(lexer->contents)) {
         if (lexer->current_char == ' ' || lexer->current_char == '\n') {
             lexer_skip_whitespace(lexer);
@@ -46,7 +52,7 @@ token_T* lexer_get_next_token(lexer_T* lexer)
             return lexer_collect_string(lexer);
         }
 
-        if (lexer->current_char == "/") {
+        if (lexer->current_char == '/') {
             return lexer_ignore_comment(lexer);
         }
 
@@ -101,7 +107,7 @@ token_T* lexer_collect_id(lexer_T* lexer)
     {
         char* s = lexer_get_current_char_as_string(lexer);
         value = realloc(value, (strlen(value) + strlen(s) + 1) * sizeof(char));
-        strncat(value, s, strlen(value) + strlen(s));
+        strcat(value, s); // TODO: may introduce vulnerabilities in the future
 
         lexer_advance(lexer);
     }
@@ -125,13 +131,6 @@ token_T* lexer_ignore_comment(lexer_T* lexer)
     }
 
     return init_token(TOKEN_COMMENT, "");
-}
-
-token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token)
-{
-    lexer_advance(lexer);
-
-    return token;
 }
 
 char* lexer_get_current_char_as_string(lexer_T* lexer)

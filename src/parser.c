@@ -7,9 +7,6 @@ parser_T* init_parser(lexer_T* lexer) {
     parser->current_token = lexer_get_next_token(lexer);
     parser->prev_token = parser->current_token;
 
-    printf("%s\n", parser->current_token->value);
-    printf("%s\n", parser->current_token->type);
-
     // parser->scope = init_scope();
 
     return parser;
@@ -55,9 +52,6 @@ AST_T* parse_statements(parser_T* parser) {
     AST_T* ast_statement = parse_statement(parser);
     compound->compound_value[0] = ast_statement;
     // compound->compound_size += 1;
-    // printf("%s\n", parser->current_token->value);
-    // printf("%s\n", parser->current_token->type);
-    // printf("here\n");
 
     while (parser->current_token->type == TOKEN_SEMI) {
         parser_eat(parser, TOKEN_SEMI);
