@@ -66,8 +66,6 @@ token_T* lexer_get_next_token(lexer_T* lexer)
         default:
             break;
         }
-
-        // lexer_advance(lexer);
     }
 
     return (void*)0;
