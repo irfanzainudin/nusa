@@ -101,7 +101,7 @@ void print_token_type(size_t token_type)
     print_token_type_given_type_enum(token_type);
 }
 
-char* token_type(size_t token_type)
+char* return_token_type(size_t token_type)
 {
     switch (token_type)
     {
@@ -136,10 +136,10 @@ char* token_type(size_t token_type)
 void print_ast_type(size_t ast_type)
 {
     printf("%lu: ", ast_type);
-    print_token_type_given_type_enum(ast_type);
+    print_ast_type_given_type_enum(ast_type);
 }
 
-char* ast_type(size_t ast_type)
+char* return_ast_type(size_t ast_type)
 {
     switch (ast_type)
     {
@@ -160,13 +160,22 @@ char* ast_type(size_t ast_type)
 }
 
 void tokenise(char* src_file, lexer_T* lexer)
-{   
+{
     printf("\n#########################################\n");
     printf("##### Tokens of %s #####\n", src_file);
     printf("#########################################\n");
     
     token_T* token = (void*)0;
-    while ((token = lexer_get_next_token(lexer)) != (void*)0) {
-        printf("> TOKEN(%d: %s, %s)\n", token->type, token_type(token->type), token->value);
+    // NOTE: How do you compare structs for equality in C?
+    // => https://stackoverflow.com/a/141724/9311041
+    while ((token = lexer_get_next_token(lexer))->type != TOKEN_EOF) {
+        printf("> TOKEN[%d: %s, %s]\n", token->type, return_token_type(token->type), token->value);
     }
+}
+
+void print_current_token(parser_T* parser)
+{
+    printf("%s: ", parser->current_token->value);
+    printf("(%u) ", parser->current_token->type);
+    print_token_type_given_type_enum(parser->current_token->type);
 }
