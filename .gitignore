@@ -10,3 +10,7 @@ temp/*
 
 # Implementation in cmalay
 smbr/
+
+# VC
+src/parser_vc.c
+src/include/parser_vc.h
